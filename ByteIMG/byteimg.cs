@@ -7,6 +7,20 @@ namespace ByteIMG
 {
     public partial class byteimg : Form
     {
+        /*
+         
+            ERROR CODES:
+
+            # : TITLE OF ERROR : DESCRIPTION
+
+            1 : Illegal file address : Missing file
+
+            2 : Blank file : Blank file
+
+            3 : Corrupted file : Miswritten bytes in file contents, usually one line being longer or shorter than the rest
+
+             */
+
         public static string file;
         
         public byteimg()
@@ -31,11 +45,12 @@ namespace ByteIMG
                 }
                 else
                 {
-                    MessageBox.Show("Illegal file address","ERROR (Code 1)",);
+                    MessageBox.Show("Illegal file address", "ERROR (Code 1)", MessageBoxButtons.OK, MessageBoxIcon.Error,MessageBoxDefaultButton.Button1);
+                    Application.Exit();
                 }
             }
             image.BackgroundImageLayout = ImageLayout.None;
-            Bitmap img = new Bitmap(100, 100);
+            Bitmap img = new Bitmap(image.Width, image.Height);
             image.BackgroundImage = img;
             img.SetPixel(15, 15, Color.Red);
             img.SetPixel(16, 16, Color.Red);
