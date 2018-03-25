@@ -5,8 +5,6 @@ namespace ByteIMG
 {
     static class Program
     {
-        public static string[] args;
-
         [STAThread]
         static void Main(string[] args)
         {

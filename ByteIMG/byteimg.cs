@@ -52,8 +52,32 @@ namespace ByteIMG
             image.BackgroundImageLayout = ImageLayout.None;
             Bitmap img = new Bitmap(image.Width, image.Height);
             image.BackgroundImage = img;
-            img.SetPixel(15, 15, Color.Red);
-            img.SetPixel(16, 16, Color.Red);
+            char white = '0';
+            char black = '1';
+            char lf = '\n';
+            char cr = '\r';
+            char nl = '\u0025';
+            char[] imgarray=file.ToCharArray();
+            int imgzero = file.IndexOf(white);
+            int x = 0;
+            int y = 0;
+            for (int i = 0; i < imgarray.Length;)
+            {
+                x = i;
+                if (imgarray[i] == lf)
+                {
+                    y += 1;
+                }
+                if (imgarray[i] == cr && imgarray[1] == lf)
+                {
+                    y += 1;
+                }
+                if (imgarray[i] == white)
+                {
+                    img.SetPixel(file.IndexOf(white) + i, y, Color.Black);
+                }
+                i += 1;
+            }
         }
 
         private void opendialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
