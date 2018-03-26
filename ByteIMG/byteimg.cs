@@ -58,26 +58,38 @@ namespace ByteIMG
             char cr = '\r';
             char nl = '\u0025';
             char[] imgarray=file.ToCharArray();
-            int imgzero = file.IndexOf(white);
-            int x = 0;
+            int x = 1;
             int y = 0;
+            int maxlength1 = file.IndexOf(lf);
+            int maxlength2 = file.IndexOf(cr);
+            int maxlines1 = 0;
+            int maxlines2 = 0;
             for (int i = 0; i < imgarray.Length;)
             {
-                x = i;
                 if (imgarray[i] == lf)
                 {
                     y += 1;
+                    maxlines1++;
+                    x=0;
                 }
-                if (imgarray[i] == cr && imgarray[1] == lf)
+                if (imgarray[i] == cr && imgarray[1 + 1] == lf)
                 {
                     y += 1;
+                    maxlines2++;
+                    x=0;
                 }
-                if (imgarray[i] == white)
+                /*if (imgarray[i] == white)
                 {
-                    img.SetPixel(file.IndexOf(white) + i, y, Color.Black);
+                    img.SetPixel(file.IndexOf(white) + x-1, y, Color.White);
+                }*/
+                if (imgarray[i] == black)
+                {
+                    img.SetPixel(file.IndexOf(black) + x, y, Color.Black);
                 }
-                i += 1;
+                i++;
+                x++;
             }
+            ClientSize = new Size(maxlength1, maxlines1);
         }
 
         private void opendialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
